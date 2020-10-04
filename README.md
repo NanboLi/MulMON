@@ -1,9 +1,9 @@
 # MulMON
 
-### (TO BE RELEASED SOON ...)
+#### (to be released soon ...)
 
-This repository contains a PyTorch implementation of the paper: 
-**Learning Neural Scene Representations of Multi-object Scenes from Multiple Views  
+This repository contains a PyTorch implementation of the paper:   
+**Learning Neural Scene Representations of Multi-object Scenes from Multiple Views.  
 Li Nanbo, Cian Eastwood, Robert B Fisher**  
 NeurIPS 2020 (Spotlight)
 
