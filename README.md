@@ -8,7 +8,7 @@ Li Nanbo, Cian Eastwood, Robert B. Fisher**](https://github.com/NanboLi/MulMON)
 NeurIPS 2020 (**Spotlight**)
 
 
-## Working Examples
+## Pre-release Working Examples
 <p float="left">
     <img src="assets/work1.gif" width="800"/>  
     <img src="assets/dist1.gif" width="800"/>
