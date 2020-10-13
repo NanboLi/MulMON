@@ -1,6 +1,6 @@
 # MulMON
 
-#### (to be released soon ...)
+### (to be released soon ...)
 
 This repository contains a PyTorch implementation of the [paper:  
 **Learning Object-Centric Representations of Multi-object Scenes from Multiple Views.  
