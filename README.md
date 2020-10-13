@@ -10,5 +10,6 @@ NeurIPS 2020 (**Spotlight**)
 
 ## Working Examples
 <p float="left">
-    <img src="assets/github_1.gif" height="512"/>
+    <img src="assets/github_1.gif" height="512"/>  
+    <img src="assets/github2.gif" height="512"/>
 </p>
