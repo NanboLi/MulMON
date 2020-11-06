@@ -20,6 +20,7 @@ NeurIPS 2020 (**<span style="color:red">Spotlight</span>**)
 **Hardware**:   
 1. GPU. Currently this code can only be run on GPU devices, however, we will consider adding a demo code that uses CPU only in the future.
 2. Disk space:
+<span style="color:red">To finish ... </span>
 
 
 **Python Environement**:  
@@ -32,7 +33,7 @@ conda activate mulmon
 ```
 
 3. Install a gpu-supported pytorch (tested with 1.1, 1.2 and 1.7).  
-<span style="color:green">To finish ... </span>
+<span style="color:red">To finish ... </span>
 
 
 
@@ -46,4 +47,4 @@ if you are using pytorch 1.1, you will also need to execute: ```pip install tens
 
 
 
-<span style="color:green">#To finish</span>
+<span style="color:red"># To finish</span>
