@@ -31,7 +31,9 @@ conda env create -f ./conda-env-spec.yml
 conda activate mulmon
 ```
 
-3. Install a gpu-supported pytorch (tested with 1.1, 1.2 and 1.7).
+3. Install a gpu-supported pytorch (tested with 1.1, 1.2 and 1.7).  
+<span style="color:green">To finish ... </span>
+
 
 
 4. Install additional packages:
@@ -39,4 +41,9 @@ conda activate mulmon
 pip install tensorboard  
 pip install scikit-image
 ```
-if you are using pytorch 1.1, you will also need to execute: ```pip install tensorboardX```.
+if you are using pytorch 1.1, you will also need to execute: ```pip install tensorboardX```.  
+   
+
+
+
+<span style="color:green">#To finish</span>
