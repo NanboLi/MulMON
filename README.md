@@ -47,4 +47,19 @@ if you are using pytorch 1.1, you will also need to execute: ```pip install tens
 
 
 
-# <span style="color:green">To finish</span>
+# <span style="color:green">To finish</span>  
+
+
+
+
+
+## Cite
+Please cite the paper if you find the code useful:
+```latex
+@inproceedings{nanbo2020mulmon,
+      title={Learning Object-Centric Representations of Multi-Object Scenes from Multiple Views}, 
+      author={Nanbo, Li and Eastwood, Cian, and Fisher, Robert B},
+      year={2020},
+      booktitle={Advances in Neural Information Processing Systems},
+}
+```
