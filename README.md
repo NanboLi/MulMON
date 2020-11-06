@@ -33,7 +33,7 @@ conda activate mulmon
 ```
 
 3. Install a gpu-supported pytorch (tested with 1.1, 1.2 and 1.7).  
-<span style="color:red">To finish ... </span>
+<span style="color:green">To finish</span>
 
 
 
@@ -47,4 +47,4 @@ if you are using pytorch 1.1, you will also need to execute: ```pip install tens
 
 
 
-<span style="color:red"># To finish</span>
+# <span style="color:green">To finish</span>
