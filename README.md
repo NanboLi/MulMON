@@ -5,7 +5,7 @@ This repository contains a PyTorch implementation of the [paper:
 **Li Nanbo**,
 [**Cian Eastwood**](http://homepages.inf.ed.ac.uk/s1668298/),
 [**Robert B. Fisher**](https://homepages.inf.ed.ac.uk/rbf/)  
-NeurIPS 2020 (**<span style="color:red">Spotlight</span>**)  
+NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)  
 
 
 ## Pre-release Working Examples
@@ -20,20 +20,20 @@ NeurIPS 2020 (**<span style="color:red">Spotlight</span>**)
 **Hardware**:   
 1. GPU. Currently this code can only be run on GPU devices, however, we will consider adding a demo code that uses CPU only in the future.
 2. Disk space:
-<span style="color:red">To finish ... </span>
+<font style="color:red">To finish ... </font>
 
 
 **Python Environement**:  
 1. We use Anaconda to manage our python environment. Check conda installation guide here: https://docs.anaconda.com/anaconda/install/linux/.
 
-2. Create a new conda env called "<span style="color:blue">mulmon</span>" and activate it:
+2. Create a new conda env called "<font style="color:blue">mulmon</font>" and activate it:
 ```setup
 conda env create -f ./conda-env-spec.yml  
 conda activate mulmon
 ```
 
 3. Install a gpu-supported pytorch (tested with 1.1, 1.2 and 1.7).  
-<span style="color:green">To finish</span>
+<font style="color:green">To finish</font>
 
 
 
@@ -43,11 +43,11 @@ pip install tensorboard
 pip install scikit-image
 ```
 if you are using pytorch 1.1, you will also need to execute: ```pip install tensorboardX```.  
-   
 
 
 
-# <span style="color:green">To finish</span>  
+
+# <font style="color:green">To finish</font>  
 
 
 
@@ -57,7 +57,7 @@ if you are using pytorch 1.1, you will also need to execute: ```pip install tens
 Please cite the paper if you find the code useful:
 ```latex
 @inproceedings{nanbo2020mulmon,
-      title={Learning Object-Centric Representations of Multi-Object Scenes from Multiple Views}, 
+      title={Learning Object-Centric Representations of Multi-Object Scenes from Multiple Views},
       author={Nanbo, Li and Eastwood, Cian, and Fisher, Robert B},
       year={2020},
       booktitle={Advances in Neural Information Processing Systems},
