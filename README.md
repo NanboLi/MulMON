@@ -4,7 +4,7 @@
 
 
 This repository contains a PyTorch implementation of the [paper:  
-**Learning Object-Centric Representations of Multi-object Scenes from Multiple Views**](https://github.com/NanboLi/MulMON)
+**Learning Object-Centric Representations of Multi-object Scenes from Multiple Views**](https://github.com/NanboLi/MulMON)  
 **Li Nanbo**,
 [**Cian Eastwood**](http://homepages.inf.ed.ac.uk/s1668298/),
 [**Robert B. Fisher**](https://homepages.inf.ed.ac.uk/rbf/)  
