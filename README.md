@@ -53,7 +53,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
   * **Fun way**:   
     For multi-view CLEVR datasets, customisation is highly recommended (more fun!). An easy setup (follow the instructions in [CLEVR-MultiView repository](https://github.com/NanboLi/CLEVR-MultiView)) will allow you to customise scenes and generate your own multi-view CLEVR datasets.
 
-***Data structure** (important):  
+* **Data structure** (important):  
 Either way you go to get the dataset, the structure of your data should have a structure as follows:
 ```
 <your path>
