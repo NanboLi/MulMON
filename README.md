@@ -19,8 +19,7 @@ NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)
 ## Requirements
 **Hardware**:   
 1. GPU. Currently this code can only be run on GPU devices, however, we will consider adding a demo code that uses CPU only in the future.
-2. Disk space:
-<font style="color:red">To finish ... </font>
+2. Disk space: we don't have any hard requirement for the disk space this is totally data dependent. See [Data](#data) section for more details.
 
 
 **Python Environement**:  
@@ -32,25 +31,23 @@ conda env create -f ./conda-env-spec.yml
 conda activate mulmon
 ```
 
-3. Install a gpu-supported pytorch (tested with 1.1, 1.2 and 1.7).  
-<font style="color:green">To finish</font>
-
-
+3. Install a gpu-supported PyTorch (tested with PyTorch 1.1 and 1.7). See the installation instructions on
+the PyTorch official site: https://pytorch.org/.
 
 4. Install additional packages:
 ```setup
 pip install tensorboard  
 pip install scikit-image
 ```
-if you are using pytorch 1.1, you will also need to execute: ```pip install tensorboardX```.  
+If pytorch 1.1 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be down by `commenting the 4th line` and `uncommenting the
+5th line` in that file.
 
+
+## Data
 
 
 
 # <font style="color:green">To finish</font>  
-
-
-
 
 
 ## Cite

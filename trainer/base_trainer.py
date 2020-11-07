@@ -2,7 +2,7 @@
 import torch
 from abc import abstractmethod
 from torch.utils.tensorboard.writer import SummaryWriter
-# from tensorboardX import SummaryWriter   # use this if a pytorch <= 1.2
+# from tensorboardX import SummaryWriter   # use this if pytorch <= 1.2
 
 
 def func(m):
@@ -22,7 +22,7 @@ class BaseTrainer:
         else:
             self.device = device
         self.model = model.to(self.device)
-        
+
         self.loss = loss
         if metrics:
             self.metrics = metrics
@@ -30,7 +30,7 @@ class BaseTrainer:
         else:
             self.has_metric = False
         self.optimizer = optimizer
-        
+
         self.start_epoch = 1
         self.epochs = config.num_epochs
         assert config.save_dir is not None
@@ -38,7 +38,7 @@ class BaseTrainer:
         self.vis_train_dir = config.vis_train_dir
         self.generated_dir = config.generated_dir
 
-        # setup visualization writer instance                
+        # setup visualization writer instance
         self.writer = SummaryWriter(self.save_dir, max_queue=10)
 
     @abstractmethod
@@ -53,7 +53,7 @@ class BaseTrainer:
                       }
         """
         raise NotImplementedError
-        
+
     @abstractmethod
     def train(self):
         """ Main training loop contained
@@ -61,7 +61,7 @@ class BaseTrainer:
         for epoch in range(self.start_epoch, self.epochs + 1):
             result = self._train_epoch(epoch)
             printing ...(result)
-            
+
             if epoch % self.save_period == 0:
                     self._save_checkpoint(epoch)
         """
@@ -69,7 +69,7 @@ class BaseTrainer:
 
     def _prepare_device(self, use_gpu=[]):
         raise NotImplementedError
-    
+
     def _save_checkpoint(self, epoch):
         """
         Saving checkpoints
