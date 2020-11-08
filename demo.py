@@ -27,8 +27,8 @@ def running_cfg(cfg):
         cfg.max_sample_views = 6
         data_dir = cfg.DATA_ROOT
         assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'gqn-jaco', 'gqn_jaco_train.json')
-        test_data_filename = os.path.join(data_dir, 'gqn-jaco', 'gqn_jaco_test.json')
+        train_data_filename = os.path.join(data_dir, 'gqn-jaco', 'gqn_jaco_train.h5')
+        test_data_filename = os.path.join(data_dir, 'gqn-jaco', 'gqn_jaco_test.h5')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
     elif cfg.DATA_TYPE == 'clevr_mv':
@@ -38,8 +38,8 @@ def running_cfg(cfg):
         cfg.max_sample_views = 6
         data_dir = cfg.DATA_ROOT
         assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_classic_mv', 'clevr_classic_mv_train.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_classic_mv', 'clevr_classic_mv_test.json')
+        train_data_filename = os.path.join(data_dir, 'clevr_mv', 'clevr_mv_train.json')
+        test_data_filename = os.path.join(data_dir, 'clevr_mv', 'clevr_mv_test.json')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
     elif cfg.DATA_TYPE == 'clevr_aug':
@@ -53,61 +53,19 @@ def running_cfg(cfg):
         test_data_filename = os.path.join(data_dir, 'clevr_aug', 'clevr_aug_test.json')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
-    elif cfg.DATA_TYPE == 'clevr_demo1':
+    # ------------------- For your customised CLEVR -----------------------
+    elif cfg.DATA_TYPE == 'your-clevr':
         image_size = [64, 64]
-        CLASSES = ['_background_', 'diamond', 'duck', 'mug', 'horse', 'dolphin']
+        CLASSES = ['_background_', 'xxx']
         cfg.v_in_dim = 3
         cfg.max_sample_views = 6
         data_dir = cfg.DATA_ROOT
         assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_demo1', 'clevr_demo1.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_demo1', 'clevr_demo1.json')
+        train_data_filename = os.path.join(data_dir, 'your-clevr', 'your-clevr_train.json')
+        test_data_filename = os.path.join(data_dir, 'your-clevr', 'your-clevr_test.json')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
-    elif cfg.DATA_TYPE == 'clevr_demo2':
-        image_size = [64, 64]
-        CLASSES = ['_background_', 'cube', 'sphere', 'cylinder']
-        cfg.v_in_dim = 3
-        cfg.max_sample_views = 6
-        data_dir = cfg.DATA_ROOT
-        assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_demo2', 'clevr_demo2.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_demo2', 'clevr_demo2.json')
-        assert os.path.isfile(train_data_filename)
-        assert os.path.isfile(test_data_filename)
-    elif cfg.DATA_TYPE == 'clevr_nips6':
-        image_size = [64, 64]
-        CLASSES = ['_background_', 'cube', 'sphere', 'cylinder']
-        cfg.v_in_dim = 3
-        cfg.max_sample_views = 6
-        data_dir = cfg.DATA_ROOT
-        assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_nips6', 'clevr_nips6.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_nips6', 'clevr_nips6.json')
-        assert os.path.isfile(train_data_filename)
-        assert os.path.isfile(test_data_filename)
-    elif cfg.DATA_TYPE == 'clevr_nips7':
-        image_size = [64, 64]
-        CLASSES = ['_background_', 'cube', 'sphere', 'cylinder']
-        cfg.v_in_dim = 3
-        cfg.max_sample_views = 6
-        data_dir = cfg.DATA_ROOT
-        assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_nips7', 'clevr_nips7.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_nips7', 'clevr_nips7.json')
-        assert os.path.isfile(train_data_filename)
-        assert os.path.isfile(test_data_filename)
-    elif cfg.DATA_TYPE == 'clevr_mix':
-        image_size = [128, 128]
-        CLASSES = ['_background_', 'cube', 'cylinder', 'sphere', 'mug', 'duck']
-        cfg.v_in_dim = 3
-        cfg.max_sample_views = 6
-        data_dir = cfg.DATA_ROOT
-        assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_mix_old', 'clevr_mix_train.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_mix_old', 'clevr_mix_test.json')
-        assert os.path.isfile(train_data_filename)
-        assert os.path.isfile(test_data_filename)
+    # ------------------- For your customised CLEVR -----------------------
     else:
         raise NotImplementedError
 
@@ -155,14 +113,13 @@ def running_cfg(cfg):
 
     cfg.image_size = image_size
     cfg.CLASSES = CLASSES
-    # cfg.latent_dim = latent_dim
     cfg.num_classes = len(CLASSES)
 
     return cfg
 
 
 # ---------------------------- main function -----------------------------
-def run_evaluation(CFG):
+def run_demo(CFG):
     if 'GQN' in CFG.arch:
         from models.baseline_gqn import GQN as ScnModel
         print(" --- Arch: GQN ---")
@@ -170,7 +127,7 @@ def run_evaluation(CFG):
         from models.baseline_iodine import IODINE as ScnModel
         print(" --- Arch: IODINE ---")
     elif 'MulMON' in CFG.arch:
-        from models.mulmon_exp import MulMON as ScnModel
+        from models.mulmon import MulMON as ScnModel
         print(" --- Arch: MulMON ---")
     else:
         raise NotImplementedError
@@ -207,15 +164,6 @@ def run_evaluation(CFG):
     if not os.path.exists(vis_eval_dir):
         os.mkdir(vis_eval_dir)
 
-    # --- dict that stores all the evaluation results ---
-    EVAL_RESULT = AttrDict()
-    rmse_record = []
-    seg_miou = []
-    uncertainty = []
-    GT_latents = []
-    latent2d = []
-    latent3d = []
-
     # --- running on ---
     count_total_samples = 0
     num_batches = min(CFG.test_batch, len(eval_dataloader))
@@ -235,107 +183,17 @@ def run_evaluation(CFG):
                                      vis_train=False,
                                      vis_uncertainty=False)
 
-        try:
-            if test_out['uncertainty'] is not None:
-                uncertainty.extend(test_out['uncertainty'])
-        except KeyError:
-            pass
-
         B = len(images)
         V = targets[0]['view_points'].shape[0]
 
-        # ----- VChnage this in need -----
-        if 'IODINE' in CFG.arch:
-            view_indices = test_out['query_views']  # [:CFG.num_vq_show]
-        elif 'GQN' in CFG.arch:
-            view_indices = test_out['query_views']
-        else:
-            # Set to obs then use first 5 for both IODINE and MulMON
-            view_indices = test_out['query_views']  # test_out['obs_views'] + test_out['query_views']
-
-        # ----- Task performance -----
-        if CFG.eval_recon:
-            rmse_out = np.mean(np.sum(test_out['rmse'], axis=2), axis=(-1, -2))  # test_out['rmse'] -- np [B, V, 3, H, W]
-            rmse_record.append(rmse_out)
-
-        if batch_id < CFG.analyse_batch or CFG.eval_seg:
-            # matching pred and GT using segmentation
-            if 'IODINE' in CFG.arch and True:
-                # num_comps = np.stack(list([tar['num_comps'].item()] * V for tar in targets), axis=0)
-                # comp_masks = test_out['x_comps']
-                # masks_clr = np.stack(list(utils.numpify(tar['masks_clr'].squeeze(1)) for tar in targets), axis=0)
-                # pre_iou, match_list = utils.compute_segmentation_iou_to_numpy(comp_masks, masks_clr, view_indices,
-                #                                                                num_comps=num_comps,
-                #                                                                threshold=1.0)
-                out_hiers = test_out['hiers']
-                num_comps = np.stack(list([tar['num_comps'].item()] * V for tar in targets), axis=0)
-                masks = np.stack(list(utils.numpify(tar['masks'].squeeze(1)) for tar in targets), axis=0)
-                pre_iou, match_list = utils.compute_segmentation_iou_to_numpy(out_hiers, masks, view_indices,
-                                                                              num_comps=num_comps,
-                                                                              threshold=1.0)
-            elif 'MulMON' in CFG.arch:
-                # num_comps = np.stack(list([tar['num_comps'].item()] * V for tar in targets), axis=0)
-                # comp_masks = test_out['x_comps'][:, :CFG.num_vq_show]
-                # masks_clr = np.stack(list(utils.numpify(tar['masks_clr'].squeeze(1)) for tar in targets), axis=0)
-                # pre_iou, match_list = utils.compute_segmentation_iou_to_numpy(comp_masks, masks_clr, view_indices,
-                #                                                                num_comps=num_comps,
-                #                                                                threshold=1.0)
-                out_hiers = test_out['hiers']  #[:, :CFG.num_vq_show]
-                num_comps = np.stack(list([tar['num_comps'].item()] * V for tar in targets), axis=0)
-                masks = np.stack(list(utils.numpify(tar['masks'].squeeze(1)) for tar in targets), axis=0)
-                pre_iou, match_list = utils.compute_segmentation_iou_to_numpy(out_hiers, masks, view_indices,
-                                                                              num_comps=num_comps,
-                                                                              threshold=1.0)
-            else:
-                raise NotImplementedError
-        # print(pre_iou)
-
-        if CFG.eval_seg:
-            out_hiers = test_out['hiers']  # [:, :CFG.num_vq_show]
-            num_comps = np.stack(list([tar['num_comps'].item()] * V for tar in targets), axis=0)
-            masks = np.stack(list(utils.numpify(tar['masks'].squeeze(1)) for tar in targets), axis=0)
-            seg_miou += utils.compute_segmentation_iou_to_numpy(out_hiers, masks, view_indices,
-                                                                match_list=match_list,
-                                                                num_comps=num_comps,
-                                                                threshold=1.0)[0]
-
-        # ----- Save latents for disentanglement analysis -----
-        if batch_id < CFG.analyse_batch:
-            if 'IODINE' in CFG.arch:
-                z_2d = test_out['latents']
-                z_3d = test_out['latents']
-            elif 'MulMON' in CFG.arch:
-                z_2d = test_out['2d_latents']
-                z_3d = test_out['3d_latents']
-            else:
-                raise NotImplementedError
-
-            latent2d.extend(z_2d)
-            latent3d.extend(z_3d)
-            # assert CFG.batch_size == 1, 'CAN ONLY USE BATCH_SIZE=1 FOR THIS'
-            # # we need remove background reps as it is less important
-            # z_2d = list(z_2d[0, vid, match_list[vid][1:]] for vid in range(V))
-            # z_3d = list(z_3d[0, vid, match_list[vid][1:]] for vid in range(V))  # delete background
-            # g_latent = utils.save_latents_for_eval(z_v_out=z_2d,
-            #                                        z_out=z_3d,
-            #                                        scn_indices=test_out['scene_indices'],
-            #                                        qry_views=test_out['query_views'],
-            #                                        gt_scenes_meta=scene_meta_info,
-            #                                        out_dir=os.path.join(CFG.output_dir, 'latents'),
-            #                                        save_count=count_total_samples)
-            # GT_latents += g_latent
-
         # ----- traverse viewpoints to see 3D -----
         if CFG.traverse_v:
+            # <<<<<<<<<< Load your own viewpoint trajectories (here we show) >>>>>>>>>>
             v_pts = torch.from_numpy(np.load(os.path.join(CFG.check_dir, 'interp_views.npy'))).cuda(CFG.gpu)
             select_views = torch.arange(72) * 5
             v_pts = v_pts[select_views, :]
             v_pts = v_pts.expand((B,) + v_pts.size()).float()
-            # v_pts_pool = torch.stack([tar['view_points'] for tar in targets], dim=0).type(images[0].dtype)
-            # v_pts = (v_pts_pool[:, 3:4, :] - v_pts_pool[:, 0:1, :]) * \
-            #         torch.linspace(0.0, 1.0, 10).cuda(CFG.gpu).reshape((B, 10, 1))
 
-            # lmbda = torch.from_numpy(test_out['lmbda']).cuda(CFG.gpu)
             scn_model.v_travel(test_out['lmbda'],
                                v_pts=v_pts,
                                save_sample_to=CFG.output_dir,
@@ -354,49 +212,7 @@ def run_evaluation(CFG):
                                save_sample_to=CFG.output_dir,
                                save_start_id=batch_id * CFG.batch_size)
 
-        # ----- traverse 3D latents -----
-        if CFG.traverse_zv:
-            z_2d = torch.from_numpy(test_out['2d_latents']).cuda(CFG.gpu)
-            # z_3d = torch.from_numpy(test_out['3d_latents']).cuda(CFG.gpu)
-            scn_model.z_travel_2d(z_2d,
-                                  limit=1.61, int_step_size=0.1,
-                                  save_sample_to=CFG.output_dir,
-                                  save_start_id=batch_id * CFG.batch_size)
-
         count_total_samples += len(images)
-
-    if len(uncertainty) > 0:
-        uncertainty = np.stack(uncertainty, axis=0).mean(axis=0)
-        print(uncertainty)
-        np.save(os.path.join(CFG.output_dir, 'uncertainty_{}_{}'.format(CFG.DATA_TYPE, CFG.seed)), uncertainty)
-
-    if CFG.eval_recon:
-        rmse_record = np.concatenate(rmse_record, axis=0).mean()
-        EVAL_RESULT['rmse'] = rmse_record.item()
-
-    if CFG.eval_seg:
-        EVAL_RESULT['seg'] = np.mean(seg_miou).item()
-
-    if len(GT_latents) > 0:
-        utils.write_json({'scene_meta': GT_latents}, os.path.join(CFG.output_dir, 'gt_latent_meta.json'))
-
-    if len(latent2d) != 0:
-        latent2d = np.stack(latent2d, axis=0)
-    else:
-        latent2d = None
-
-    if len(latent3d) != 0:
-        latent3d = np.stack(latent3d, axis=0)
-    else:
-        latent3d = None
-
-    # np.savez_compressed(os.path.join(CFG.output_dir, 'samples_{}'.format(CFG.DATA_TYPE.split('_')[-1])),
-    #                     z2d=latent2d,
-    #                     z3d=latent3d[:, 0, ...]
-    #                     )
-
-    utils.write_json(EVAL_RESULT, os.path.join(CFG.check_dir, 'eval_{}.json'.format(CFG.DATA_TYPE)))
-    return EVAL_RESULT
 
 
 def main(cfg):
@@ -440,17 +256,9 @@ def main(cfg):
 
     parser.add_argument("--use_bg", default=False, help="treat background also an object",
                         action="store_true")
-    parser.add_argument("--eval_all", default=False, help="evaluate model with all the metrics",
-                        action="store_true")
-    parser.add_argument("--eval_recon", default=False, help="evaluate model's reconstruction capability",
-                        action="store_true")
-    parser.add_argument("--eval_seg", default=False, help="evaluate model's segmentation capability'",
-                        action="store_true")
     parser.add_argument("--traverse_v", default=False, help="traverse latent dimensions to see v disentanglement",
                         action="store_true")
     parser.add_argument("--traverse_z", default=False, help="traverse latent dimensions to see z disentanglement",
-                        action="store_true")
-    parser.add_argument("--traverse_zv", default=False, help="traverse latent dimensions to see z disentanglement",
                         action="store_true")
 
     parser.add_argument("-i", '--input_dir', required=True, help="path to the input data for the model to read")
@@ -495,48 +303,18 @@ def main(cfg):
     cfg.DATA_ROOT = args.input_dir
     cfg.ckpt_base = args.output_dir
 
-    # eval specs
+    # demo specs
     cfg.use_bg = args.use_bg
-
-    if args.eval_all:
-        cfg.eval_recon = True
-        cfg.eval_seg = True
-    else:
-        cfg.eval_recon = args.eval_recon
-        cfg.eval_seg = args.eval_seg
     cfg.traverse_v = args.traverse_v
     cfg.traverse_z = args.traverse_z
-    cfg.traverse_zv = args.traverse_zv
-
-    if 'GQN' in cfg.arch:
-        cfg.eval_seg = False
-
     running_cfg(cfg)
 
-    # ---------- RUNNING EVALUATION ----------
-    eval_scores = run_evaluation(cfg)
+    # ---------- generating demos ----------
+    run_demo(cfg)
 
-    print("\n =========== Model '{}' Evaluated on '{}' dataset =========== \n".format(cfg.arch, cfg.DATA_TYPE))
-
-    # print evaluation form
-    if args.eval_all:
-        # Recomposition quality
-        print('\n  <reconstruction>:')
-        print('   -RMSE:    {}'.format(eval_scores['rmse']))
-
-        # Segmentation
-        print('\n  <segmentation>:')
-        print('   -mIoU seg:     {}'.format(eval_scores['miou_seg']))
-    else:
-        if cfg.eval_recon:
-            print('\n  <reconstruction>:')
-            print('   -RMSE:    {}'.format(eval_scores['rmse']))
-        if cfg.eval_seg:
-            print('\n  <segmentation>:')
-            print('   -mIoU seg:     {}'.format(eval_scores['seg']))
-
-    print('\n ===============================================')
-    print('  EVALUATION FINISHED\n\n')
+    print("\n== Demos generated!")
+    print("----------------------------------")
+    print("== Check them in:  '{}' \n".format(cfg.output_dir))
 
 
 ##############################################################################

@@ -88,7 +88,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
     Download our datasets:  
       * [clevr_mv.tar.gz](https://drive.google.com/file/d/1P8Upanh7yan3kKdnNAtXpa6uC1819hUO/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
       * [clevr_aug.tar.gz](https://drive.google.com/file/d/1dL_YeGSINghTTHoOd8gjbSMm2u5CagJa/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
-      * [gqn-jaco.tar.gz](https://drive.google.com/file/d/1xDm0InpO6jLILbOFN5MhaoJvjenDzuaD/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
+      * [gqn-jaco.tar.gz](https://drive.google.com/file/d/1xDm0InpO6jLILbOFN5MhaoJvjenDzuaD/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/GQN/` directory.  
 
     and extract them in places. For example, the command for extracting `clevr_mv.tar.gz`:
     ```
@@ -110,12 +110,12 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
 `data_path=../myDatasets/mulmon_datasets/GQN`.
 
 * **Demo**    
-  (**available soon...**)
-  <!-- *Dowload the pre-trained models first* and execute:
+  (**Testing in progress...**)
+  *Dowload the pre-trained models first* and execute:
   ```run
   . scripts/demo.sh  
   ```
-  Check `./logs` folder for the generated demos. -->
+  Check `./logs` folder for the generated demos.
 
 * **Train**  
   * On a single gpu (e.g. using the GQN-Jaco dataset):  
@@ -136,7 +136,7 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
 
 
 ## Contact
-We constantly respond to the raised ''issues'' in terms of running the code. For further inquiries and discussions (e.g. questions about the paper), email: `nanbo.li@ed.ac.uk`.
+We constantly respond to the raised ''issues'' in terms of running the code. For further inquiries and discussions (e.g. questions about the paper), email: **nanbo.li@ed.ac.uk**.
 
 
 ## Cite
