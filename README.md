@@ -76,7 +76,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
                       ├── gqn_jaco_train.h5
                       └── gqn_jaco_test.h5
   ```
-  We recommended to prepare the necessary data folders before downloading/generating data files:
+  We recommend one to get the necessary data folders ready before downloading/generating the data files:
   ```prepare
   mkdir <YOUR-PATH>/mulmon_datasets  
   mkdir <YOUR-PATH>/mulmon_datasets/clevr  
