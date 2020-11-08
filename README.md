@@ -46,8 +46,7 @@ the PyTorch official site: https://pytorch.org/.
 pip install tensorboard  
 pip install scikit-image
 ```
-If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be down by `commenting the 4th line` and `uncommenting the
-5th line` of that file.
+If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be down by commenting the **4th line** and uncommenting the **5th line** of that file.
 
 
 ## Data
