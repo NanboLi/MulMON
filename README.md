@@ -38,8 +38,7 @@ conda env create -f ./conda-env-spec.yml
 conda activate mulmon
 ```
 
-3. Install a gpu-supported PyTorch (tested with PyTorch 1.1, 1.2 and 1.7). See the installation instructions on
-the PyTorch official site: https://pytorch.org/.
+3. Install a gpu-supported PyTorch. We tested with PyTorch 1.1, 1.2 and 1.7, which means it is quite possible that there exists a PyTorch installer that is compatible with both your CUDA and our code. Go find it on [PyTorch official site]( https://pytorch.org/), and install it with one line of command.
 
 4. Install additional packages:
 ```setup
