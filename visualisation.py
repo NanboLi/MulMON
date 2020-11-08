@@ -8,14 +8,12 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm, colors
-from skimage.transform import rescale
+from skimage.transform import resize
 import torch
 from torchvision.utils import make_grid
 
 
-def enhance_save_single_image(img, save_fname, scale=1.0):
-    if scale != 1.0:
-        img = rescale(img, scale, anti_aliasing=False)
+def enhance_save_single_image(img, save_fname):
     if img.dtype != 'uint8':
         img = (img * 255).astype(np.uint8)
     pimg = Image.fromarray(img)
@@ -56,9 +54,9 @@ def torch_save_image_enhanced(tensor, filename, nrow=8, padding=2,
     im.save(filename)
 
 
-def save_single_image(img, save_fname, scale=1.0):
-    if scale != 1.0:
-        img = rescale(img, scale, anti_aliasing=False)
+def save_single_image(img, save_fname, out_size=None):
+    if out_size:
+        img = resize(img, out_size, anti_aliasing=True)
     imageio.imwrite(save_fname, img)
 
 

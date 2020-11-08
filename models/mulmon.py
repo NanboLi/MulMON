@@ -515,6 +515,7 @@ class MulMON(nn.Module):
             'x_recon': vis_recons,
             'x_comps': vis_comps,
             'hiers': vis_hiers,
+            'lmbda': lmbda,
             '2d_latents': vis_2d_latents,
             '3d_latents': vis_3d_latents,
             'scene_indices': list(tar['scn_id'][0].item() for tar in targets),
@@ -561,7 +562,6 @@ class MulMON(nn.Module):
         for key in GIFs.keys():
             GIFs[key] = torch.stack(GIFs[key], dim=0)   # [steps, B, #, C, H, W]
 
-        fixed_temp_orders_seg = [1,3,2,0,6,5,4]
         for b in range(B):
             save_batch_dir = os.path.join(save_dir, str(b+save_start_id))
             utils.ensure_dir(save_batch_dir)
@@ -570,8 +570,7 @@ class MulMON(nn.Module):
                 for iid in range(L):
                     if key == 'alpha':
                         vis.enhance_save_single_image(utils.numpify(GIFs[key][iid, b, ...].cpu().permute(1, 2, 0)),
-                                                      os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)),
-                                                      scale=2.0)
+                                                      os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)))
                         # save_image(tensor=GIFs[key][iid, b, ...].cpu(),
                         #            filename=os.path.join(save_batch_dir, '{}_{:02d}.jpg'.format(prefix, iid)))
                     elif key == 'seg':
@@ -579,13 +578,13 @@ class MulMON(nn.Module):
                                         axis=0).astype('uint8')
                         seg = vis.save_dorder_plots(seg, K_comps=K, cmap='hsv')
                         vis.save_single_image(seg,
-                                              os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)), 2.0)
+                                              os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)))
                     elif key == 'uncer':
                         vis_var = np.log10(utils.numpify(GIFs[key][iid, b, ...].cpu()) + 1e-6)
                         vis_var = vis.map_val_colors(vis_var,
                                                      v_min=-6., v_max=-2., cmap='hot')
                         vis.save_single_image(vis_var,
-                                              os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)), 2.0)
+                                              os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)))
                     else:
                         raise NotImplementedError
                 vis.grid2gif(str(os.path.join(save_batch_dir, prefix + '*.png')),

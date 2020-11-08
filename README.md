@@ -85,13 +85,13 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 * **Get Datasets**  
   * **Easy way**:  
     Download our datasets:  
-      * [clevr_mv.tar.gz](https://drive.google.com/file/d/1P8Upanh7yan3kKdnNAtXpa6uC1819hUO/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
-      * [clevr_aug.tar.gz](https://drive.google.com/file/d/1dL_YeGSINghTTHoOd8gjbSMm2u5CagJa/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
-      * [gqn-jaco.tar.gz](https://drive.google.com/file/d/1xDm0InpO6jLILbOFN5MhaoJvjenDzuaD/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/GQN/` directory.  
+      * [clevr_mv.tar.gz](https://drive.google.com/file/d/1P8Upanh7yan3kKdnNAtXpa6uC1819hUO/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory (~1.8GB when extracted).  
+      * [clevr_aug.tar.gz](https://drive.google.com/file/d/1dL_YeGSINghTTHoOd8gjbSMm2u5CagJa/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory (~1.8GB when extracted).  
+      * [gqn-jaco.tar.gz](https://drive.google.com/file/d/1xDm0InpO6jLILbOFN5MhaoJvjenDzuaD/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/GQN/` directory (~1.8GB when extracted).  
 
     and extract them in places. For example, the command for extracting `clevr_mv.tar.gz`:
     ```
-    tar -zxvf <YOUR-PATH>/mulmon_datasets/clevr/clevr_mv.tar.gz
+    tar -zxvf <YOUR-PATH>/mulmon_datasets/clevr/clevr_mv.tar.gz -C <YOUR-PATH>/mulmon_datasets/clevr/
     ```
     Note that: 1) we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets), and 2) the published clevr_aug dataset differs slightly from the one we used in the paper.
 
