@@ -96,8 +96,8 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
     ```
     Note that: 1) we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets), and 2) the published clevr_aug dataset differs slightly from the one we used in the paper.
 
-  * **Fun way**  
-   (**available soon...**):  
+  * **Fun way**  :  
+   Customise your own multi-view CLEVR data. (**available soon...**)  
     <!-- For multi-view CLEVR datasets, customisation is highly recommended (more fun!). An easy setup (follow the instructions in [CLEVR-MultiView repository](https://github.com/NanboLi/CLEVR-MultiView) will allow you to customise scenes and generate your own multi-view CLEVR datasets. -->
 
 
