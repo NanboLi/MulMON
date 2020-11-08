@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # makde sure the below path are correctly configured before you run this script
-data_path=<YOUR-PATH>/MultiObj/clevr                                            # <---------- configure your own path to the data here
+data_path=<YOUR-PATH>/mulmon_datasets/clevr                                            # <---------- configure your own path to the data here
 repo_path=.
 log_path=${repo_path}/logs
 data_type=clevr_aug   # one of ["clevr_aug", "clevr_mv"]

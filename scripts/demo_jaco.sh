@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # makde sure the below path are correctly configured before you run this script
-data_path=<YOUR-PATH>/MultiObj/GQN
+data_path=<YOUR-PATH>/mulmon_datasets/GQN
 repo_path=.
 log_path=${repo_path}/logs
 data_type=gqn_jaco
