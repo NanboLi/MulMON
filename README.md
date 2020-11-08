@@ -50,57 +50,67 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 
 
 ## Data
-* **Get Dataset**  
-  * **Easy way**:   
-    [download our datasets](https://drive.google.com/file/d/12xn6PpJOKVAr98onHEutwZJvj91xJTVC/view?usp=sharing) and extract it (*~9GB free disk space required*):
-    ```
-    tar -zxvf <YOUR PATH>/MultiObj.tar.gz
-    ```
-    Note that we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets).   
-
-  * **Fun way** (**available soon...**):
-    For multi-view CLEVR datasets, customisation is highly recommended (more fun!). An easy setup (follow the instructions in [CLEVR-MultiView repository](https://github.com/NanboLi/CLEVR-MultiView) will allow you to customise scenes and generate your own multi-view CLEVR datasets.
-
 * **Data structure** (*important*):  
-Either way you go to get the dataset, the structure of your data should have a structure as follows:
-```
-<YOUR PATH>                                          
-    ├── ...
-    └── MultiObj
-          ├── clevr                                   # place your own CLEVR-MV under this directory if you go the fun way
-          │    ├── ...
-          │    ├── clevr_mv            
-          │    │    └── ... (omit)                    # see clevr_<xxx> for subdirectory details
-          │    ├── clevr_aug           
-          │    │    └── ... (omit)                    # see clevr_<xxx> for subdirectory details
-          │    └── clevr_<xxx>
-          │         ├── ...
-          │         ├── data                          # contains a list of scene files
-          │         │    ├── CLEVR_new_#.npy          # one .npy --> one scene sample
-          │         │    ├── CLEVR_new_#.npy       
-          │         │    └── ...
-          │         ├── clevr_<xxx>_train.json        # meta information of the training scenes
-          │         └── clevr_<xxx>_test.json         # meta information of the testing scenes  
-          └── GQN  
-               ├── ...
-               └── gqn-jaco                 
-                    ├── gqn_jaco_train.h5
-                    └── gqn_jaco_test.h5
-```
+  We use a data structure as follow.
+  ```
+  <YOUR-PATH>                                          
+      ├── ...
+      └── mulmon_datasets
+            ├── clevr                                   # place your own CLEVR-MV under this directory if you go the fun way
+            │    ├── ...
+            │    ├── clevr_mv            
+            │    │    └── ... (omit)                    # see clevr_<xxx> for subdirectory details
+            │    ├── clevr_aug           
+            │    │    └── ... (omit)                    # see clevr_<xxx> for subdirectory details
+            │    └── clevr_<xxx>
+            │         ├── ...
+            │         ├── data                          # contains a list of scene files
+            │         │    ├── CLEVR_new_#.npy          # one .npy --> one scene sample
+            │         │    ├── CLEVR_new_#.npy       
+            │         │    └── ...
+            │         ├── clevr_<xxx>_train.json        # meta information of the training scenes
+            │         └── clevr_<xxx>_test.json         # meta information of the testing scenes  
+            └── GQN  
+                 ├── ...
+                 └── gqn-jaco                 
+                      ├── gqn_jaco_train.h5
+                      └── gqn_jaco_test.h5
+  ```
+  We recommended to prepare the necessary data folders before downloading/generating data files:
+  ```prepare
+  mkdir <YOUR-PATH>/mulmon_datasets  
+  mkdir <YOUR-PATH>/mulmon_datasets/clevr  
+  mkdir <YOUR-PATH>/mulmon_datasets/GQN
+  ```
 
+* **Get Datasets**  
+  * **Easy way**:  
+    Download our datasets:  
+      * [clevr_mv.tar.gz]() and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
+      * [clevr_aug.tar.gz]() and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
+      * [gqn-jaco.tar.gz]() and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
+
+    and extract them in places. For example, the command for extracting `clevr_mv.tar.gz`:
+    ```
+    tar -zxvf <YOUR-PATH>/mulmon_datasets/clevr/clevr_mv.tar.gz
+    ```
+    Note that: 1) we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets), and 2) the published clevr_aug dataset differs slightly from the one we used in the paper.
+
+  * **Fun way**  
+   (**available soon...**):  
+    <!-- For multi-view CLEVR datasets, customisation is highly recommended (more fun!). An easy setup (follow the instructions in [CLEVR-MultiView repository](https://github.com/NanboLi/CLEVR-MultiView) will allow you to customise scenes and generate your own multi-view CLEVR datasets. -->
 
 
 ## Pre-trained models  
-[Download them here](https://drive.google.com/file/d/1ngaskexzGkAoibqUEiil1STU_nKYKHSd/view?usp=sharing). Extract the .zip file and place the whole `./logs` folder under `MulMON/`.
-
+[Download the pretrained models](https://drive.google.com/file/d/1ngaskexzGkAoibqUEiil1STU_nKYKHSd/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
 
 ## Usage
 **Configure data path**  
-To run the code, the data path, i.e. the `<YOUR PATH>` in a script, needs to be correctly configured. For example, we store the MulMON dataset folder `MultiObj` in `../myDatasets/`, to train a MulMON on GQN-Jaco dataset using a single GPU, the **4th line** of the `./scripts/train_jaco.sh` script should look like:
-`data_path=../myDatasets/MultiObj/GQN`.
+To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be correctly configured. For example, we store the MulMON dataset folder `mulmon_datasets` in `../myDatasets/`, to train a MulMON on GQN-Jaco dataset using a single GPU, the **4th line** of the `./scripts/train_jaco.sh` script should look like:
+`data_path=../myDatasets/mulmon_datasets/GQN`.
 
 * **Demo**    
-  (available soon...)
+  (**available soon...**)
   <!-- *Dowload the pre-trained models first* and execute:
   ```run
   . scripts/demo.sh  
@@ -120,8 +130,7 @@ To run the code, the data path, i.e. the `<YOUR PATH>` in a script, needs to be 
 
 
 * **Evaluation**  
-(available soon...)
-
+(**available soon...**)
 
 
 ## Contact

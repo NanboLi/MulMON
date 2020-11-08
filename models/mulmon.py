@@ -333,7 +333,7 @@ class MulMON(nn.Module):
         return balancing_discount*total_loss, lmbda, mask_logits, mu_x
 
     def sample_qz_uncertainty(self, lmbda, yq):
-        """image space uncertainty MC estimation"""
+        """image-space pixel-wise uncertainty estimation via MC sampling"""
         B, K, _ = yq.size()
         mu_z, logvar_z = lmbda.chunk(2, dim=1)
         z = dist.Normal(mu_z, to_sigma(logvar_z)).rsample([self.config.num_mc_samples])
@@ -522,3 +522,127 @@ class MulMON(nn.Module):
             'query_views': qry_view_idx
         }
         return preds
+
+    @torch.no_grad()
+    def v_travel(self, lmbda, v_pts, save_sample_to=None, save_start_id=0):
+        """
+        Viewpoint queired predictions along a viewpoint trajectory.
+
+        :param z: [B*K, D]
+        :param v_pts: [B, L, dview]   (a viewpoint trajectory)
+        """
+        save_dir = os.path.join(save_sample_to, 'v_track')
+        utils.ensure_dir(save_dir)
+        B, L, _ = v_pts.size()
+        K = lmbda.size(0) // B
+
+        mu_z, logvar_z = lmbda.chunk(2, dim=-1)
+        z = dist.Normal(mu_z, to_sigma(logvar_z)).rsample()
+
+        v_feat = self.view_encoder(v_pts.reshape(B * L, -1))  # output [B*V, 8]
+        v_feat = v_feat.reshape(B, L, -1).unsqueeze(1).repeat(1, K, 1, 1)
+
+        GIFs = {
+            'alpha': [],    # RGB images
+            'seg': [],      # Segmentation
+            'uncer': []     # Unvertainty (pixel-wise space)
+        }
+        for l in range(L):
+            yq = v_feat[:, :, l, :]
+            z_yq = self.projector(torch.cat((z, yq.reshape(B*K, -1)), dim=-1))
+            mask_logits, mu_x = self.decode(z_yq)
+            masks = torch.softmax(mask_logits, dim=1)
+            x_hat = torch.sum(masks * mu_x, dim=1)
+            uncer, _ = self.sample_qz_uncertainty(lmbda, yq)
+            GIFs['alpha'].append(x_hat)
+            GIFs['seg'].append(masks.squeeze(2))
+            GIFs['uncer'].append(torch.from_numpy(uncer).to(masks).float())
+
+        for key in GIFs.keys():
+            GIFs[key] = torch.stack(GIFs[key], dim=0)   # [steps, B, #, C, H, W]
+
+        fixed_temp_orders_seg = [1,3,2,0,6,5,4]
+        for b in range(B):
+            save_batch_dir = os.path.join(save_dir, str(b+save_start_id))
+            utils.ensure_dir(save_batch_dir)
+            for key in GIFs.keys():
+                prefix = '{}{}'.format(b + save_start_id, key)
+                for iid in range(L):
+                    if key == 'alpha':
+                        vis.enhance_save_single_image(utils.numpify(GIFs[key][iid, b, ...].cpu().permute(1, 2, 0)),
+                                                      os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)),
+                                                      scale=2.0)
+                        # save_image(tensor=GIFs[key][iid, b, ...].cpu(),
+                        #            filename=os.path.join(save_batch_dir, '{}_{:02d}.jpg'.format(prefix, iid)))
+                    elif key == 'seg':
+                        seg = np.argmax(utils.numpify(GIFs[key][iid, b, ...].cpu()),
+                                        axis=0).astype('uint8')
+                        seg = vis.save_dorder_plots(seg, K_comps=K, cmap='hsv')
+                        vis.save_single_image(seg,
+                                              os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)), 2.0)
+                    elif key == 'uncer':
+                        vis_var = np.log10(utils.numpify(GIFs[key][iid, b, ...].cpu()) + 1e-6)
+                        vis_var = vis.map_val_colors(vis_var,
+                                                     v_min=-6., v_max=-2., cmap='hot')
+                        vis.save_single_image(vis_var,
+                                              os.path.join(save_batch_dir, '{}_{:02d}.png'.format(prefix, iid)), 2.0)
+                    else:
+                        raise NotImplementedError
+                vis.grid2gif(str(os.path.join(save_batch_dir, prefix + '*.png')),
+                             str(os.path.join(save_batch_dir, '{}.gif'.format(prefix))), delay=20)
+
+    @torch.no_grad()
+    def z_travel(self, z3d, v_pts, limit=3.0, int_step_size=0.66, save_sample_to=None, save_start_id=0):
+        """
+        Traverse latent space to visualise the learnt reps.
+
+        :param z3d:  [B, K, D]
+        :param v_pts:  [B, L, dView]
+        :param limit:  numerical bounds for traverse
+        :param int_step_size:  traverse step size (interpolation gap between traverse points)
+        :param save_dir:  save the output to this dir
+        :param start_id:  save the output as file
+        """
+        from torchvision.utils import save_image
+        save_dir = os.path.join(save_sample_to, 'disen_3d')
+        utils.ensure_dir(save_dir)
+        B, K, D = z3d.size()
+        V = v_pts.size(1)
+
+        v_feat = self.view_encoder(v_pts.reshape(B * V, -1))  # output [B*V, 8]
+        v_feat = v_feat.reshape(B, V, -1).unsqueeze(1).repeat(1, K, 1, 1)
+
+        # D = 1
+        k = 2  # we select only one object out of K for analysis
+        H, W = tuple(self.config.image_size)
+        interpolation = torch.arange(-limit, limit + 0.1, int_step_size)
+
+        gifs = []
+        for d in range(D):
+            for int_val in interpolation:
+                z = z3d.clone()  # [B, K, D]
+                z[:, k, d] += int_val
+
+                for vq in range(V):
+                    yq = v_feat[:, :, vq, :]
+                    z_yq = self.projector(torch.cat((z.reshape(B * K, -1), yq.reshape(B * K, -1)), dim=-1))
+                    mask_logits, mu_x = self.decode(z_yq)
+                    gifs.append(torch.sum(torch.softmax(mask_logits, dim=1) * mu_x, dim=1).data)
+        gifs = torch.cat(gifs, dim=0)
+        gifs = gifs.reshape(D, len(interpolation), V, B, 3, H, W).permute([3, 0, 1, 2, 4, 5, 6])
+
+        for b in range(B):
+            save_batch_dir = os.path.join(save_dir, str(save_start_id + b))
+            utils.ensure_dir(save_batch_dir)
+            b_gifs = gifs[b, ...]
+            b_gifs = torch.cat(b_gifs.chunk(V, dim=2), dim=0).squeeze(2)
+
+            for iid in range(len(interpolation)):
+                key = 'frame'
+                vis.torch_save_image_enhanced(tensor=b_gifs[:, iid, ...].cpu(),
+                                              filename=os.path.join(save_batch_dir, '{}_{:02d}.jpg'.format(key, iid)),
+                                              nrow=D, pad_value=1, enhance=True)
+            vis.grid2gif(str(os.path.join(save_batch_dir, key + '*.jpg')),
+                         str(os.path.join(save_batch_dir, 'disten3d.gif')), delay=20)
+
+            print(" -- traversed latent space for {} scene samples".format(b + 1))
