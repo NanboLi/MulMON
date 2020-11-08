@@ -109,4 +109,3 @@ venv.bak/
 *.png
 .idea/
 .DS_Store
-*.sh
