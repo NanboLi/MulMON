@@ -28,7 +28,11 @@ NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)
 **Python Environement**:  
 1. We use Anaconda to manage our python environment. Check conda installation guide here: https://docs.anaconda.com/anaconda/install/linux/.
 
-2. Open a new terminal, create a new conda env called "<font style="color:blue">mulmon</font>" and activate it:
+2. Open a new terminal, direct to the MulMON directory:
+```path
+cd <YOUR-PATH-TO-MulMON>/MulMON/
+```
+create a new conda environment called "<font style="color:blue">mulmon</font>" and then activate it:
 ```setup
 conda env create -f ./conda-env-spec.yml  
 conda activate mulmon
@@ -43,7 +47,7 @@ pip install tensorboard
 pip install scikit-image
 ```
 If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be down by `commenting the 4th line` and `uncommenting the
-5th line` in that file.
+5th line` of that file.
 
 
 ## Data
@@ -56,7 +60,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 * **Data structure** (important):  
 Either way you go to get the dataset, the structure of your data should have a structure as follows:
 ```
-<your path>
+<YOUR PATH>                                          
     ├── ...
     └── MultiObj
           ├── clevr                                   # place your own CLEVR-MV under this directory if you go the fun way
@@ -83,37 +87,40 @@ Either way you go to get the dataset, the structure of your data should have a s
 
 
 ## Pre-trained models  
-[Download](#) will be available soon.
-
+[Download them here](#). Extract the .zip file and place the whole `./log` under the `MulMON/`.
 
 
 ## Usage
-**Configure data path**:  
-To run the code, you need to configure the data path in the scripts file first. For example,
+**Configure data path**  
+To run the code, the data path, i.e. the `<YOUR PATH>` in a script, needs to be correctly configured. For example, we store the MulMON dataset folder `MultiObj` in `../myDatasets/`, to train a MulMON on GQN-Jaco dataset using a single GPU, the **4th line** of the `./scripts/train_jaco.sh` script should look like:
+`data_path=../myDatasets/MultiObj/GQN`.
 
-
-
-* **Demo** (test run):  
-TODO ...  
+* **Demo**:  
+  Dowload the pre-trained models first and execute:
+  ```run
+  . scripts/demo.sh  
+  ```
+  Check `./log` folder for the generated demos.
 
 * **Train**  
-* On a single gpu:  
-```run
-TODO ...  
-```
-* On multiple GPUs:  
-```run
-TODO ...  
-```
+  * On a single gpu (e.g. using the GQN-Jaco dataset):  
+  ```run
+  . scripts/train_jaco.sh  
+  ```
+  * On multiple GPUs (e.g. using the GQN-Jaco dataset):  
+  ```run
+  . scripts/train_jaco_parallel.sh  
+  ```  
+  * To resume weights from a pre-trained model, e.g. `checkpoint-epoch<#number>.pth`, simply append a flag `--resume_epoch <#number>` to one of the flags in the script files. E.g., for the `./scripts/train_jaco.sh` script, make its **10th** line look like: `--input_dir ${data_path} --output_dir ${log_path} --resume_epoch 2000 \`.
+
 
 * **Evaluation**  
-TODO ...  
+(available soon...)
 
 
 
 ## Contact
-We constantly check ''issues'', feel free to leave comments there. Or, email directly:  
-nanbo.li@ed.ac.uk  
+We constantly respond to the raised ''issues'' in terms of running the code. For further inquiries and discussions (e.g. questions about the paper), email: `nanbo.li@ed.ac.uk`.
 
 
 ## Cite
