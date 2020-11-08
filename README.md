@@ -111,7 +111,7 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
 
 * **Demo**    
   (**Testing in progress...**)
-  *Dowload the pre-trained models first* and execute:
+  Before running the below code, make sure the pretrained models are downloaded and saved [first](#pre-trained-models):
   ```run
   . scripts/demo.sh  
   ```
