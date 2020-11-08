@@ -86,9 +86,9 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 * **Get Datasets**  
   * **Easy way**:  
     Download our datasets:  
-      * [clevr_mv.tar.gz]() and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
-      * [clevr_aug.tar.gz]() and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
-      * [gqn-jaco.tar.gz]() and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
+      * [clevr_mv.tar.gz](https://drive.google.com/file/d/1P8Upanh7yan3kKdnNAtXpa6uC1819hUO/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
+      * [clevr_aug.tar.gz](https://drive.google.com/file/d/1dL_YeGSINghTTHoOd8gjbSMm2u5CagJa/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
+      * [gqn-jaco.tar.gz](https://drive.google.com/file/d/1xDm0InpO6jLILbOFN5MhaoJvjenDzuaD/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory.  
 
     and extract them in places. For example, the command for extracting `clevr_mv.tar.gz`:
     ```
@@ -102,7 +102,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 
 
 ## Pre-trained models  
-[Download the pretrained models](https://drive.google.com/file/d/1ngaskexzGkAoibqUEiil1STU_nKYKHSd/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
+[Download the pretrained models](https://drive.google.com/file/d/1CBCGftjIsZhrw0KIkNNTJJeexUulPDdn/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
 
 ## Usage
 **Configure data path**  
