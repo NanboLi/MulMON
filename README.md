@@ -52,11 +52,16 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 ## Data
 * **Get Dataset**  
   * **Easy way**:   
-    [download](#) our datasets (available soon). We used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets).  
-  * **Fun way**:   
-    For multi-view CLEVR datasets, customisation is highly recommended (more fun!). An easy setup (follow the instructions in [CLEVR-MultiView repository](https://github.com/NanboLi/CLEVR-MultiView)) will allow you to customise scenes and generate your own multi-view CLEVR datasets.
+    [download our datasets](https://drive.google.com/file/d/12xn6PpJOKVAr98onHEutwZJvj91xJTVC/view?usp=sharing) and extract it (*~9GB free disk space required*):
+    ```
+    tar -zxvf <YOUR PATH>/MultiObj.tar.gz
+    ```
+    Note that we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets).   
 
-* **Data structure** (important):  
+  * **Fun way** (**available soon...**):
+    For multi-view CLEVR datasets, customisation is highly recommended (more fun!). An easy setup (follow the instructions in [CLEVR-MultiView repository](https://github.com/NanboLi/CLEVR-MultiView) will allow you to customise scenes and generate your own multi-view CLEVR datasets.
+
+* **Data structure** (*important*):  
 Either way you go to get the dataset, the structure of your data should have a structure as follows:
 ```
 <YOUR PATH>                                          
@@ -86,7 +91,7 @@ Either way you go to get the dataset, the structure of your data should have a s
 
 
 ## Pre-trained models  
-[Download them here](#). Extract the .zip file and place the whole `./log` under the `MulMON/`.
+[Download them here](https://drive.google.com/file/d/1ngaskexzGkAoibqUEiil1STU_nKYKHSd/view?usp=sharing). Extract the .zip file and place the whole `./logs` folder under `MulMON/`.
 
 
 ## Usage
@@ -94,12 +99,13 @@ Either way you go to get the dataset, the structure of your data should have a s
 To run the code, the data path, i.e. the `<YOUR PATH>` in a script, needs to be correctly configured. For example, we store the MulMON dataset folder `MultiObj` in `../myDatasets/`, to train a MulMON on GQN-Jaco dataset using a single GPU, the **4th line** of the `./scripts/train_jaco.sh` script should look like:
 `data_path=../myDatasets/MultiObj/GQN`.
 
-* **Demo**:  
-  Dowload the pre-trained models first and execute:
+* **Demo**    
+  (available soon...)
+  <!-- *Dowload the pre-trained models first* and execute:
   ```run
   . scripts/demo.sh  
   ```
-  Check `./log` folder for the generated demos.
+  Check `./logs` folder for the generated demos. -->
 
 * **Train**  
   * On a single gpu (e.g. using the GQN-Jaco dataset):  

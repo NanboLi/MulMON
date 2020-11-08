@@ -42,8 +42,8 @@ def running_cfg(cfg):
         cfg.max_sample_views = 6
         data_dir = cfg.DATA_ROOT
         assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_classic_mv', 'clevr_classic_mv_train.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_classic_mv', 'clevr_classic_mv_test.json')
+        train_data_filename = os.path.join(data_dir, 'clevr_mv', 'clevr_mv_train.json')
+        test_data_filename = os.path.join(data_dir, 'clevr_mv', 'clevr_mv_test.json')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
     elif cfg.DATA_TYPE == 'clevr_aug':
@@ -57,17 +57,19 @@ def running_cfg(cfg):
         test_data_filename = os.path.join(data_dir, 'clevr_aug', 'clevr_aug_test.json')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
-    elif cfg.DATA_TYPE == 'clevr_mix':
-        image_size = [128, 128]
-        CLASSES = ['_background_', 'cube', 'owl', 'mug', 'duck', 'horse', 'dragon']
+    # ------------------- For your customised CLEVR -----------------------
+    elif cfg.DATA_TYPE == 'your-clevr':
+        image_size = [64, 64]
+        CLASSES = ['_background_', 'xxx']
         cfg.v_in_dim = 3
         cfg.max_sample_views = 6
         data_dir = cfg.DATA_ROOT
         assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'clevr_mix', 'clevr_mix_train.json')
-        test_data_filename = os.path.join(data_dir, 'clevr_mix', 'clevr_mix_test.json')
+        train_data_filename = os.path.join(data_dir, 'your-clevr', 'your-clevr_train.json')
+        test_data_filename = os.path.join(data_dir, 'your-clevr', 'your-clevr_test.json')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
+    # ------------------- For your customised CLEVR -----------------------
     else:
         raise NotImplementedError
 
@@ -159,7 +161,7 @@ def train(gpu_id, CFG):
         lr_scheduler = AnnealingStepLR(optimiser, mu_i=CFG.lr_rate, mu_f=0.1*CFG.lr_rate, n=1e6)
 
     if 'gqn' in CFG.DATA_TYPE:
-        # if 'h5' data is used, otherwise, use json loader
+        # if 'h5' data is used (by default), otherwise, use json loader
         from data_loader.getGqnH5 import DataLoader
         # from data_loader.getGqnData import DataLoader
     elif 'clevr' in CFG.DATA_TYPE:
