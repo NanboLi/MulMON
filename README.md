@@ -126,8 +126,8 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
   ```run
   . scripts/train_jaco_parallel.sh  
   ```  
-  * To resume weights from a pre-trained model, e.g. `checkpoint-epoch<#number>.pth`, simply append a flag `--resume_epoch <#number>` to one of the flags in the script files.  
-  For example, to resume the weights from `checkpoint-epoch2000.pth` (trained on GQN-Jaco) for further training, the **10th line** of the `./scripts/train_jaco.sh` script should be configured as:  
+  * To resume training from a stopped session, i.e. saved weights `checkpoint-epoch<#number>.pth`, simply append a flag `--resume_epoch <#number>` to one of the flags in the script files.  
+  For example, to resume previous training (saved as `checkpoint-epoch2000.pth`) on GQN-Jaco data, we just need to reconfigure the **10th line** of the `./scripts/train_jaco.sh` as:  
   `--input_dir ${data_path} --output_dir ${log_path} --resume_epoch 2000 \`.
 
 
