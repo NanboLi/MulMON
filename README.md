@@ -19,8 +19,8 @@ NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)
 
 ## Requirements
 **Hardware**:   
-* GPU. Currently this code can only be run on GPU devices, however, we will consider adding a demo code that uses CPU only in the future.
-* Disk space: we do NOT have any hard requirement for the disk space this is totally data dependent. See [Data](#data) section for more details.
+* GPU. Currently this code can only be run on GPU devices, however, we will consider adding a demo code that only uses CPU in the future.
+* Disk space: we do NOT have any hard requirement for the disk space, this is totally data-dependent. To use all the datasets we provide, you will need >=10GB disk space to use this code. However, you don't need to use all of them, see [Data](#data) section for more details.
 
 
 **Python Environement**:  
