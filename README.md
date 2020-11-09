@@ -3,7 +3,7 @@
 
 This repository contains a PyTorch implementation of the [paper:  
 **Learning Object-Centric Representations of Multi-object Scenes from Multiple Views**](https://github.com/NanboLi/MulMON)  
-**Li Nanbo**,
+[**Li Nanbo**](http://homepages.inf.ed.ac.uk/s1601283/),
 [**Cian Eastwood**](http://homepages.inf.ed.ac.uk/s1668298/),
 [**Robert B. Fisher**](https://homepages.inf.ed.ac.uk/rbf/)  
 NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)  
@@ -19,8 +19,8 @@ NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)
 
 ## Requirements
 **Hardware**:   
-* GPU. Currently this code can only be run on GPU devices, however, we will consider adding a demo code that only uses CPU in the future.
-* Disk space: we do NOT have any hard requirement for the disk space, this is totally data-dependent. To use all the datasets we provide, you will need ~=9GB disk space. However, it is not necessary to use all of our datasets (or even our datasets), see [Data](#data) section for more details.
+* GPU. Currently, at least one GPU device is required to run this code, however, we will consider adding CPU demo code in the future.
+* Disk space: we do NOT have any hard requirement for the disk space, this is totally data-dependent. To use all the datasets we provide, you will need ~9GB disk space. However, it is not necessary to use all of our datasets (or even our datasets), see [Data](#data) section for more details.
 
 
 **Python Environement**:  
@@ -43,12 +43,12 @@ conda activate mulmon
 pip install tensorboard  
 pip install scikit-image
 ```
-If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be down by commenting the **4th line** and uncommenting the **5th line** of that file.
+If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be done by commenting the **4th line** and uncommenting the **5th line** of that file.
 
 
 ## Data
 * **Data structure** (*important*):  
-  We use a data structure as follow.
+  We use a data structure as follows:
   ```
   <YOUR-PATH>                                          
       ├── ...
@@ -91,7 +91,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
     ```
     tar -zxvf <YOUR-PATH>/mulmon_datasets/clevr/clevr_mv.tar.gz -C <YOUR-PATH>/mulmon_datasets/clevr/
     ```
-    Note that: 1) we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets), and 2) the published clevr_aug dataset differs slightly from the one we used in the paper.
+    Note that: 1) we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets), and 2) the published clevr_aug dataset differs slightly from the CLE-Aug used in the paper.
 
   * **Fun way**  :  
    Customise your own multi-view CLEVR data. (**available soon...**)  
@@ -134,11 +134,11 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
 
 
 ## Contact
-We constantly respond to the raised ''issues'' in terms of running the code. For further inquiries and discussions (e.g. questions about the paper), email: **nanbo.li@ed.ac.uk**.
+We constantly respond to the raised ''issues'' in terms of running the code. For further inquiries and discussions (e.g. questions about the paper), email: **nanbo.li@ed.ac.uk**.   
 
 
-## Cite
-Please cite the paper if you find the code useful:
+## Cite  
+Please cite our paper if you find this code useful.
 ```latex
 @inproceedings{nanbo2020mulmon,
       title={Learning Object-Centric Representations of Multi-Object Scenes from Multiple Views},
