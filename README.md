@@ -84,7 +84,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
   * **Easy way**:  
     Download our datasets:  
       * [clevr_mv.tar.gz](https://drive.google.com/file/d/1P8Upanh7yan3kKdnNAtXpa6uC1819hUO/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory (~1.8GB when extracted).  
-      * [clevr_aug.tar.gz](https://drive.google.com/file/d/1dL_YeGSINghTTHoOd8gjbSMm2u5CagJa/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory (~1.8GB when extracted).  
+      * [clevr_aug.tar.gz](https://drive.google.com/file/d/1dL_YeGSINghTTHoOd8gjbSMm2u5CagJa/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/clevr/` directory (~3.8GB when extracted).  
       * [gqn_jaco.tar.gz](https://drive.google.com/file/d/1ekKa8gCaeqSG0yhr8j6ppR4eCZHECipA/view?usp=sharing) and place it under the `<YOUR-PATH>/mulmon_datasets/GQN/` directory (~3.2GB when extracted).  
 
     and extract them in places. For example, the command for extracting `clevr_mv.tar.gz`:
