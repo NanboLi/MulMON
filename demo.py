@@ -180,8 +180,7 @@ def run_demo(CFG):
         test_out = scn_model.predict(images, targets,
                                      save_sample_to=vis_eval_dir,
                                      save_start_id=count_total_samples,
-                                     vis_train=False,
-                                     vis_uncertainty=False)
+                                     vis_train=True)
 
         B = len(images)
         V = targets[0]['view_points'].shape[0]
