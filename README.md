@@ -108,13 +108,12 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be correctly configured. For example, we store the MulMON dataset folder `mulmon_datasets` in `../myDatasets/`, to train a MulMON on GQN-Jaco dataset using a single GPU, the **4th line** of the `./scripts/train_jaco.sh` script should look like:
 `data_path=../myDatasets/mulmon_datasets/GQN`.
 
-* **Demo**    
-  (**Testing in progress...**)
+* **Demo** (Environment Test)  
   Before running the below code, make sure the pretrained models are downloaded and saved [first](#pre-trained-models):
   ```run
   . scripts/demo.sh  
   ```
-  Check `./logs` folder for the generated demos.
+  Check `./logs` folder for the generated demos. Note that we randomly pick one object for each scene to create the disentanglement demo, so for samples where an empty object slot is picked, you won't see any object manipulation effect in the corresponding gifs.  
 
 * **Train**  
   * On a single gpu (e.g. using the GQN-Jaco dataset):  
