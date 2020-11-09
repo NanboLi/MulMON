@@ -1,6 +1,4 @@
-# MulMON
-
-### (Pre-relsease)
+# MulMON  
 
 
 This repository contains a PyTorch implementation of the [paper:  
@@ -101,7 +99,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 
 
 ## Pre-trained models  
-[Download the pretrained models](https://drive.google.com/file/d/12rE6oLDuG_r8C10JU54ureYM7xuqrlIb/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
+[Download the pretrained models](https://drive.google.com/file/d/1qc7uBHHxPmQe7qZJhtnh6SWwojT4pScj/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
 
 ## Usage
 **Configure data path**  
@@ -113,7 +111,9 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
   ```run
   . scripts/demo.sh  
   ```
-  Check `./logs` folder for the generated demos. Note that we randomly pick one object for each scene to create the disentanglement demo, so for samples where an empty object slot is picked, you won't see any object manipulation effect in the corresponding gifs.  
+  Check `./logs` folder for the generated demos.  
+
+  * **Notes for disentanglement demos**: we randomly pick one object for each scene to create the disentanglement demo, so for samples where an empty object slot is picked, you won't see any object manipulation effect in the corresponding gifs (especially for the GQN-Jaco scenes). To create a demo like shown, one need to specify (by hard-coding) an object slot of interest and traverse informative latent dimensions (as some dimensions are redundant---capture no object property).
 
 * **Train**  
   * On a single gpu (e.g. using the GQN-Jaco dataset):  

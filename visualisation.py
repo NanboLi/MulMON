@@ -13,7 +13,9 @@ import torch
 from torchvision.utils import make_grid
 
 
-def enhance_save_single_image(img, save_fname):
+def enhance_save_single_image(img, save_fname, out_size=None):
+    if out_size:
+        img = resize(img, out_size, anti_aliasing=True)
     if img.dtype != 'uint8':
         img = (img * 255).astype(np.uint8)
     pimg = Image.fromarray(img)

@@ -611,12 +611,15 @@ class MulMON(nn.Module):
         v_feat = self.view_encoder(v_pts.reshape(B * V, -1))  # output [B*V, 8]
         v_feat = v_feat.reshape(B, V, -1).unsqueeze(1).repeat(1, K, 1, 1)
 
-        # D = 1
-        k = 2  # we select only one object out of K for analysis
         H, W = tuple(self.config.image_size)
         interpolation = torch.arange(-limit, limit + 0.1, int_step_size)
 
         gifs = []
+        # ------------ Select intereted object and informtive latent dimensions here ------------
+        k = 2  # we select only one object out of K for analysis
+        # SPECIFY_DIMENSIONS=[9, 31]
+        # D = len(SPECIFY_DIMENSIONS)
+        # ---------------------------------------------------------------------------------------
         for d in range(D):
             for int_val in interpolation:
                 z = z3d.clone()  # [B, K, D]

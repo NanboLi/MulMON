@@ -147,7 +147,9 @@ def run_demo(CFG):
     scn_model.eval()
 
     if 'gqn' in CFG.DATA_TYPE:
-        from data_loader.getGqnData import DataLoader
+        # if 'h5' data is used (by default), otherwise, use json loader
+        from data_loader.getGqnH5 import DataLoader
+        # from data_loader.getGqnData import DataLoader
     elif 'clevr' in CFG.DATA_TYPE:
         from data_loader.getClevrMV import DataLoader
     else:
@@ -158,7 +160,6 @@ def run_demo(CFG):
                                  batch_size=CFG.batch_size,
                                  shuffle=True,
                                  use_bg=CFG.use_bg)
-    scene_meta_info = utils.read_json(CFG.test_data_filename)['scenes']
 
     vis_eval_dir = CFG.generated_dir
     if not os.path.exists(vis_eval_dir):
@@ -180,7 +181,7 @@ def run_demo(CFG):
         test_out = scn_model.predict(images, targets,
                                      save_sample_to=vis_eval_dir,
                                      save_start_id=count_total_samples,
-                                     vis_train=True)
+                                     vis_train=False)
 
         B = len(images)
         V = targets[0]['view_points'].shape[0]
