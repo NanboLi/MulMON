@@ -27,8 +27,8 @@ def running_cfg(cfg):
         cfg.max_sample_views = 6
         data_dir = cfg.DATA_ROOT
         assert os.path.exists(data_dir)
-        train_data_filename = os.path.join(data_dir, 'gqn-jaco', 'gqn_jaco_train.h5')
-        test_data_filename = os.path.join(data_dir, 'gqn-jaco', 'gqn_jaco_test.h5')
+        train_data_filename = os.path.join(data_dir, 'gqn_jaco', 'gqn_jaco_train.h5')
+        test_data_filename = os.path.join(data_dir, 'gqn_jaco', 'gqn_jaco_test.h5')
         assert os.path.isfile(train_data_filename)
         assert os.path.isfile(test_data_filename)
     elif cfg.DATA_TYPE == 'clevr_mv':
