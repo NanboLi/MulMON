@@ -20,7 +20,7 @@ NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)
 ## Requirements
 **Hardware**:   
 * GPU. Currently this code can only be run on GPU devices, however, we will consider adding a demo code that only uses CPU in the future.
-* Disk space: we do NOT have any hard requirement for the disk space, this is totally data-dependent. To use all the datasets we provide, you will need >=10GB disk space to use this code. However, you don't need to use all of them, see [Data](#data) section for more details.
+* Disk space: we do NOT have any hard requirement for the disk space, this is totally data-dependent. To use all the datasets we provide, you will need ~=9GB disk space. However, it is not necessary to use all of our datasets (or even our datasets), see [Data](#data) section for more details.
 
 
 **Python Environement**:  
@@ -36,7 +36,7 @@ conda env create -f ./conda-env-spec.yml
 conda activate mulmon
 ```
 
-3. Install a gpu-supported PyTorch. We tested with PyTorch 1.1, 1.2 and 1.7, which means it is quite possible that there exists a PyTorch installer that is compatible with both your CUDA and our code. Go find it on [PyTorch official site](https://pytorch.org/), and install it with one line of command.
+3. Install a gpu-supported PyTorch (tested with PyTorch 1.1, 1.2 and 1.7). It is very likely that there exists a PyTorch installer that is compatible with both your CUDA and this code. Go find it on [PyTorch official site](https://pytorch.org/), and install it with one line of command.
 
 4. Install additional packages:
 ```setup
