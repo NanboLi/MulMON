@@ -11,9 +11,9 @@ NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)
 
 ## Working examples
 <p float="left">
-    <img src="assets/work1.gif" width="800"/>  
+    <img src="assets/working_example.gif" width="800"/>  
     <img src="assets/jaco_cam_traj_white.gif" width="800"/>  
-    <img src="assets/dist1.gif" width="800"/>
+    <img src="assets/dist.gif" width="800"/>
 </p>
 
 
