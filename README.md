@@ -101,7 +101,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 
 
 ## Pre-trained models  
-[Download the pretrained models](https://drive.google.com/file/d/1CBCGftjIsZhrw0KIkNNTJJeexUulPDdn/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
+[Download the pretrained models](https://drive.google.com/file/d/12rE6oLDuG_r8C10JU54ureYM7xuqrlIb/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
 
 ## Usage
 **Configure data path**  
