@@ -141,9 +141,10 @@ We constantly respond to the raised ''issues'' in terms of running the code. For
 Please cite our paper if you find this code useful.
 ```latex
 @inproceedings{nanbo2020mulmon,
-      title={Learning Object-Centric Representations of Multi-Object Scenes from Multiple Views},
-      author={Nanbo, Li and Eastwood, Cian, and Fisher, Robert B},
-      year={2020},
-      booktitle={Advances in Neural Information Processing Systems},
+  title={Learning Object-Centric Representations of Multi-Object Scenes from Multiple Views},
+  author={Nanbo, Li and Eastwood, Cian and Fisher, Robert B},
+  booktitle={Advances in Neural Information Processing Systems},
+  volume={34},
+  year={2020}
 }
 ```
