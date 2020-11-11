@@ -43,7 +43,7 @@ conda activate mulmon
 pip install tensorboard  
 pip install scikit-image
 ```
-If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be done by commenting the **4th line** and uncommenting the **5th line** of that file.
+If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorboardX``` and import it in the `./trainer/base_trainer.py` file. This can be done by commenting the **4th line** AND uncommenting the **5th line** of that file.
 
 
 ## Data
@@ -113,7 +113,7 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
   ```
   Check `./logs` folder for the generated demos.  
 
-  * **Notes for disentanglement demos**: we randomly pick one object for each scene to create the disentanglement demo, so for samples where an empty object slot is picked, you won't see any object manipulation effect in the corresponding gifs (especially for the GQN-Jaco scenes). To create a demo like shown, one need to specify (by hard-coding) an object slot of interest and traverse informative latent dimensions (as some dimensions are redundant---capture no object property).
+  * **Notes for disentanglement demos**: we randomly pick one object for each scene to create the disentanglement demo, so for scene samples where an empty object slot is picked, you won't see any object manipulation effect in the corresponding gifs (especially for the GQN-Jaco scenes). To create a demo like the shown one, one needs to specify (hard-coding) an object slot of interest and traverse informative latent dimensions (as some dimensions are redundant---capture no object property).
 
 * **Train**  
   * On a single gpu (e.g. using the GQN-Jaco dataset):  
