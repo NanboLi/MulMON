@@ -144,7 +144,6 @@ Please cite our paper if you find this code useful.
   title={Learning Object-Centric Representations of Multi-Object Scenes from Multiple Views},
   author={Nanbo, Li and Eastwood, Cian and Fisher, Robert B},
   booktitle={Advances in Neural Information Processing Systems},
-  volume={34},
   year={2020}
 }
 ```
