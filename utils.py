@@ -1,3 +1,7 @@
+"""
+Utility functions. Some are adapted from other repositories.
+@author: Nanbo Li
+"""
 import os
 import re
 import json

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Training parallel (previously diverse behaviours in server and the nanbo desktop are now erased)
+Training MulMON on a multiple GPU devices.
 @author: Nanbo Li
 """
 import sys
@@ -185,9 +185,7 @@ def train(process_id, CFG):
                                                     device_ids=[gpu])
 
     if 'gqn' in CFG.DATA_TYPE:
-        # if 'h5' data is used (by default), otherwise, use json loader
         from data_loader.getGqnH5 import distributed_loader
-        # from data_loader.getGqnData import distributed_loader
     elif 'clevr' in CFG.DATA_TYPE:
         from data_loader.getClevrMV import distributed_loader
     else:

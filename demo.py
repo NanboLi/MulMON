@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+"""
+Greating demos --- scene factorisation, novel-view synthesis, and disentanglement.
+@author: Nanbo Li
+"""
 import sys
 import os
 import random

@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-
+"""
+Visualisation utilities. 
+@author: Nanbo Li
+"""
 import os
 import imageio
 from PIL import Image, ImageEnhance

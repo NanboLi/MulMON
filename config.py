@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""
+Global variables initilisation. Note that python arguments override them.
+@author: Nanbo Li
+"""
 import os
 
 
@@ -32,17 +36,13 @@ class CONFIG(object):
 
     # ---------------------- Model configuration ---------------------
     # Model specification
-    num_slots = 7
-    pixel_sigma = 0.1
-    bg_sigma = 0.09
-    fg_sigma = 0.11
-    temperature = 1
-    v_in_dim = 3
-    view_dim = 5
-    latent_dim = 16
-    latent_mask_size = [16, 16]
-    compose_mode = 'softmax'
-    WORK_MODE = 'training'  # one of ['training', 'testing']
+    num_slots = 7               # number of object slots, i.e. $K$ in the paper
+    pixel_sigma = 0.1           # sigma used in Eqn. (2)
+    temperature = 1             # sigma used in Eqn. (2)
+    v_in_dim = 3                # raw view-point dimension (defined in dataset)
+    view_dim = 5                # viewpoint code after non-linear transformations
+    latent_dim = 16             # latent diemnsion
+    WORK_MODE = 'training'      # one of ['training', 'testing']
 
     # validation control
     eval_classification = False
@@ -59,11 +59,11 @@ class CONFIG(object):
     weight_decay = 0.0
     adam_beta1 = 0.9
     adam_beta2 = 0.999
-    optimiser = 'ADAM'  # ['ADAM', 'SGD']
+    optimiser = 'ADAM'          # ['ADAM', 'SGD']
 
     # trainging recording
-    log_period = 1  # print training status on terminal (unit: step)
-    val_period = 10  # validate every <#> epochs
+    log_period = 1    # print training status on terminal (unit: step)
+    val_period = 10   # validate every <#> epochs
     show_period = 10  # visualise trainign outputs every <#> epochs
     save_period = 10  # save training weights every <#> epochs
 
@@ -80,17 +80,3 @@ class CONFIG(object):
         resume_epoch = num_epochs
     else:
         pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-

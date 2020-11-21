@@ -161,9 +161,7 @@ def train(gpu_id, CFG):
         lr_scheduler = AnnealingStepLR(optimiser, mu_i=CFG.lr_rate, mu_f=0.1*CFG.lr_rate, n=1e6)
 
     if 'gqn' in CFG.DATA_TYPE:
-        # if 'h5' data is used (by default), otherwise, use json loader
         from data_loader.getGqnH5 import DataLoader
-        # from data_loader.getGqnData import DataLoader
     elif 'clevr' in CFG.DATA_TYPE:
         from data_loader.getClevrMV import DataLoader
     else:

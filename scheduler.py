@@ -1,5 +1,8 @@
-from torch.optim.lr_scheduler import _LRScheduler
+"""
+GQN training schedulers. Adapted from https://github.com/iShohei220/torch-gqn
+"""
 
+from torch.optim.lr_scheduler import _LRScheduler
 
 class AnnealingStepLR(_LRScheduler):
     def __init__(self, optimizer, mu_i=5e-4, mu_f=5e-5, n=1.6e6):
