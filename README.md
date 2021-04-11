@@ -9,12 +9,13 @@ This repository contains a PyTorch implementation of the [paper:
 NeurIPS 2020 (**<font style="color:red">Spotlight</font>**)  
 
 
-## Working examples
+## Working examples  
 <p float="left">
     <img src="assets/working_example.gif" width="800"/>  
     <img src="assets/jaco_cam_traj_white.gif" width="800"/>  
     <img src="assets/dist.gif" width="800"/>
 </p>
+Check our video presentation for more: https://youtu.be/Og2ic2L77Pw.
 
 
 ## Requirements
