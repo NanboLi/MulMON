@@ -104,9 +104,12 @@ venv.bak/
 .mypy_cache/
 
 # ours
+/scripts
+/wandb
 /logs
+*.sh
 *.npy
 *.png
-.idea/
+.idea/*
+.idea/workspace.xml
 .DS_Store
-eval.py
