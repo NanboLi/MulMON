@@ -134,8 +134,16 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
   * On a single gpu (e.g. using the Clevr_MV dataset):  
   ```run
   . scripts/eval_clevr.sh  
-  ```
-  * For the disentanglement evaluation, run the `scripts/eval_clevr.sh` script with `--eval_dist` flag set to **True** and set the `--analyse_batch` variable (which controls how many scenes of latent codes one wants to analyse) to be **greater than 0**. This saves the ouptut latent codes and ground-truth information that allows you to conduct disentanglement quantification using the [QEDR framework](https://github.com/cianeastwood/qedr.git).
+  ```  
+  * Here is a list of imporant evaluation settings which one might wants to play with  
+     `--resume_epoch` specify a model to evaluate
+     `--test_batch` how many batches of test data one uses for evaluation.  
+     `--vis_batch` how many batches of output one visualises (save) while evaluation. (note: <= `--test_batch`)  
+     `--analyse_batch` how many batches of latent codes one saves for a post analysis, e.g. disentanglement. (note: <= `--test_batch`)  
+     `--eval_all` (boolean) set **True** for all \[`--eval_recon`, `--eval_seg`, `--eval_qry_obs`, `--eval_qry_seg`\] items, one could also use each of the four independently.   
+     `--eval_dist` (boolean) save latent codes for disentanglement analysis. (note: not controlled by `--eval_all`)  
+  * For the disentanglement evaluation, run the `scripts/eval_clevr.sh` script with `--eval_dist` flag set to **True** and set the `--analyse_batch` variable (which controls how many scenes of latent codes one wants to analyse) to be **greater than 0**. This saves the ouptut latent codes and ground-truth information that allows you to conduct disentanglement quantification using the [QEDR framework](https://github.com/cianeastwood/qedr.git).  
+  * You might observe slight performance drops on the CLE-Aug dataset when compared the results with that on the paper, this is reasonable as the CLE-Aug here is different from the paper---[more difficult](#data).  
 
 
 ## Contact
