@@ -104,10 +104,10 @@ venv.bak/
 .mypy_cache/
 
 # ours
-/scripts
+# /scripts
 /wandb
 /logs
-*.sh
+# *.sh
 *.npy
 *.png
 .idea/*

@@ -333,6 +333,10 @@ def main(cfg):
     cfg.world_size = args.gpus * args.nodes  #
 
     running_cfg(cfg)
+
+    # # save current config for later evaluation
+    # utils.write_pickle(cfg, os.path.join(cfg.check_dir, 'config.obj'))
+
     os.environ['MASTER_ADDR'] = 'localhost'  #
     os.environ['MASTER_PORT'] = args.master_port  #
     mp.spawn(train, nprocs=cfg.gpus, args=(cfg,))

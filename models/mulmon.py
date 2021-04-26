@@ -1,38 +1,13 @@
 import os
-import math, random
+import random
 import numpy as np
 from attrdict import AttrDict
 import torch
 import torch.nn as nn
 import torch.distributions as dist
-from models.encoder import Encoder
-from models.decoder import SpatialBroadcastDec
+from models.modules import *
 import visualisation as vis
 import utils
-
-
-def to_sigma(logvar):
-    """ Compute std """
-    return torch.exp(0.5*logvar)
-
-
-class RefineNetLSTM(nn.Module):
-    """
-    function Phi (see Sec 3.3 of the paper)
-    (adapted from: https://github.com/MichaelKevinKelly/IODINE)
-    """
-    def __init__(self, z_dim, channels_in, image_size):
-        super(RefineNetLSTM, self).__init__()
-        self.convnet = Encoder(channels_in, 128, image_size)
-        self.lstm = nn.LSTMCell(128 + 4 * z_dim, 128, bias=True)
-        self.fc_out = nn.Linear(128, 2 * z_dim)
-
-    def forward(self, x, h, c):
-        x_img, lmbda_moment = x['img'], x['state']
-        conv_codes = self.convnet(x_img)
-        lstm_input = torch.cat((lmbda_moment, conv_codes), dim=1)
-        h, c = self.lstm(lstm_input, (h, c))
-        return self.fc_out(h), h, c
 
 
 class MulMON(nn.Module):
@@ -144,72 +119,26 @@ class MulMON(nn.Module):
                             agents
         :param min_limit: minimum number of observations one agent needs
         :param max_limit: maximum number of observations the agent are provided
+        :param allow_repeat: allow repeated viewpoints to be sampled
         :return: observation_view_id_list, querying_view_id_list
         """
         assert max_limit <= num_views
         FULL_HOUSE = [*range(num_views)]
         # randomise the order of views
         random.shuffle(FULL_HOUSE)
-        # randomise the number of given observations
+        # randomise the number of the given observations
         L = random.randint(min_limit, max_limit)
 
-        # random partition of observation views and query views
+        if L == num_views:
+            return FULL_HOUSE, FULL_HOUSE
+
+        # random partition of the observation views and query views
         observation_view_id_list = FULL_HOUSE[:L]
         if allow_repeat:
             querying_view_id_list = random.sample(FULL_HOUSE, num_views-L)
         else:
             querying_view_id_list = FULL_HOUSE[L:]
-
         return observation_view_id_list, querying_view_id_list
-
-    @staticmethod
-    def Gaussian_ll(x_col, _x, masks, std):
-        """
-        x_col: [B,K,C,H,W]
-        _x:    [B,K,3,H,W]
-        masks:   [B,K,1,H,W]
-        """
-        B, K, _, _, _ = x_col.size()
-        std_t = torch.tensor([std] * K, device=x_col.device, dtype=x_col.dtype, requires_grad=False)
-        std_t = std_t.expand(1, K).unsqueeze(-1).unsqueeze(-1).unsqueeze(-1)
-        log_pxz = dist.Normal(x_col, std_t).log_prob(_x)
-        ll_pix = torch.logsumexp((masks + 1e-6).log() + log_pxz, dim=1, keepdim=True)  # [B,K,3,H,W]
-        assert ll_pix.min().item() > -math.inf
-        return ll_pix, log_pxz
-
-    @staticmethod
-    def kl_exponential(post_mu, post_sigma, z_samples=None, pri_mu=None, pri_sigma=None):
-        """Support Gaussian only now"""
-        if pri_mu is None:
-            pri_mu = torch.zeros_like(post_mu, device=post_mu.device, requires_grad=True)
-        if pri_sigma is None:
-            pri_sigma = torch.ones_like(post_sigma, device=post_sigma.device, requires_grad=True)
-        p_post = dist.Normal(post_mu, post_sigma)
-        if z_samples is None:
-            z_samples = p_post.rsample()
-        p_pri = dist.Normal(pri_mu, pri_sigma)
-        return p_post.log_prob(z_samples) - p_pri.log_prob(z_samples)
-
-    @staticmethod
-    def layernorm(x):
-        """
-        :param x: (B, K, L) or (B, K, C, H, W)
-        (function adapted from: https://github.com/MichaelKevinKelly/IODINE)
-        """
-        if len(x.size()) == 3:
-            layer_mean = x.mean(dim=2, keepdim=True)
-            layer_std = x.std(dim=2, keepdim=True)
-        elif len(x.size()) == 5:
-            mean = lambda x: x.mean(2, keepdim=True).mean(3, keepdim=True).mean(4, keepdim=True)
-            layer_mean = mean(x)
-            # this is not implemented in some version of torch
-            layer_std = torch.pow(x - layer_mean, 2)
-            layer_std = torch.sqrt(mean(layer_std))
-        else:
-            assert False, 'invalid size for layernorm'
-
-        x = (x - layer_mean) / (layer_std + 1e-5)
-        return x
 
     def get_refine_inputs(self, _x, mu_x, masks, mask_logits, ll_pxl, lmbda, loss, ll_col):
         """
@@ -239,11 +168,11 @@ class MulMON(nn.Module):
         dlmbda = torch.autograd.grad(loss, lmbda, retain_graph=True, only_inputs=True)[0]  ## (N*K,2*z_dim)
 
         # Layer norm -- stablises trainings
-        x_lik_stable = self.layernorm(x_lik).detach()
-        leave_one_out_stable = self.layernorm(leave_one_out).detach()
-        dmu_x_stable = self.layernorm(dmu_x).detach()
-        dmasks_stable = self.layernorm(dmasks).detach()
-        dlmbda_stable = self.layernorm(torch.stack(dlmbda.chunk(N, 0), 0)).detach()
+        x_lik_stable = layernorm(x_lik).detach()
+        leave_one_out_stable = layernorm(leave_one_out).detach()
+        dmu_x_stable = layernorm(dmu_x).detach()
+        dmasks_stable = layernorm(dmasks).detach()
+        dlmbda_stable = layernorm(torch.stack(dlmbda.chunk(N, 0), 0)).detach()
         dlmbda_stable = torch.cat(dlmbda_stable.split(1, dim=0), dim=1).squeeze(0)
 
         # Generate coordinate channels
@@ -296,7 +225,7 @@ class MulMON(nn.Module):
             # Sample latent code
             mu_z, logvar_z = lmbda.chunk(2, dim=1)
             z = dist.Normal(mu_z, to_sigma(logvar_z)).rsample()  # (N*K,z_dim)
-            kl_qz = self.kl_exponential(mu_z, to_sigma(logvar_z),
+            kl_qz = kl_exponential(mu_z, to_sigma(logvar_z),
                                         pri_mu=mu_pri, pri_sigma=to_sigma(logvar_pri), z_samples=z)
             kl_qz = torch.stack(kl_qz.chunk(B, dim=0), dim=0).sum(dim=(1, 2))
 
@@ -311,7 +240,7 @@ class MulMON(nn.Module):
 
             # Compute the loss (neg ELBO): reconstruction (nll) & KL divergence
             _x = x.unsqueeze(dim=1).repeat(1, K, 1, 1, 1)
-            ll_pxl, ll_col = self.Gaussian_ll(mu_x, _x, masks, self.std)  # (N,1,3,H,W)
+            ll_pxl, ll_col = Gaussian_ll(mu_x, _x, masks, self.std)  # (N,1,3,H,W)
             nll = -1. * (ll_pxl.flatten(start_dim=1).sum(dim=-1).mean()) * self.config.elbo_weights['exp_nll']
             loss = nll + kl_qz.mean() * self.config.elbo_weights['kl_latent']
 
@@ -400,7 +329,7 @@ class MulMON(nn.Module):
             mask_logits, mu_x = self.decode(z_yq)
             # get masks
             masks = torch.softmax(mask_logits, dim=1)
-            ll_pxl, _ = self.Gaussian_ll(mu_x, x.unsqueeze(dim=1).expand((B, K,) + x.shape[1:]),
+            ll_pxl, _ = Gaussian_ll(mu_x, x.unsqueeze(dim=1).expand((B, K,) + x.shape[1:]),
                                          masks, self.std)  # (N,1,3,H,W)
             nll = -1. * (ll_pxl.flatten(start_dim=1).sum(dim=-1).mean())
 
@@ -491,7 +420,7 @@ class MulMON(nn.Module):
             vis_comps.append(utils.numpify(indi_masks * mu_x))
             vis_hiers.append(utils.numpify(masks))
             vis_2d_latents.append(utils.numpify(z_yq.reshape(B, K, -1)))
-            vis_3d_latents.append(utils.numpify(z.reshape(B, K, -1)))
+            vis_3d_latents.append(utils.numpify(mu_z.reshape(B, K, -1)))
 
             del mu_x, mask_logits, masks
 
@@ -512,6 +441,7 @@ class MulMON(nn.Module):
                                        save_dir=save_sample_to,
                                        start_id=save_start_id)
         preds = {
+            'x_images': vis_images,
             'x_recon': vis_recons,
             'x_comps': vis_comps,
             'hiers': vis_hiers,

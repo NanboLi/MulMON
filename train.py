@@ -292,6 +292,10 @@ def main(cfg):
     cfg.world_size = args.gpus * args.nodes  #
 
     cfg = running_cfg(cfg)
+
+    # # save current config for later evaluation
+    # utils.write_pickle(cfg, os.path.join(cfg.check_dir, 'config.obj'))
+
     train(cfg.gpu_start, cfg)
 
 
