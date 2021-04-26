@@ -92,7 +92,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
     ```
     tar -zxvf <YOUR-PATH>/mulmon_datasets/clevr/clevr_mv.tar.gz -C <YOUR-PATH>/mulmon_datasets/clevr/
     ```
-    Note that: 1) we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets), and 2) the published clevr_aug dataset differs slightly from the CLE-Aug used in the paper.
+    Note that: 1) we used only a subset of the DeepMind GQN-Jaco dataset, more available at [deepmind/gqn-datasets](https://github.com/deepmind/gqn-datasets), and 2) the published clevr_aug dataset differs slightly from the CLE-Aug used in the paper---we added more shapes (such as dolphins) into the dataset to make the dataset more interesting (also more complex). 
 
   * **Fun way**  :  
    Customise your own multi-view CLEVR data. (**available soon...**)  
@@ -100,7 +100,7 @@ If pytorch <=1.2 is used, you will also need to execute: ```pip install tensorbo
 
 
 ## Pre-trained models  
-[Download the pretrained models](https://drive.google.com/file/d/1qc7uBHHxPmQe7qZJhtnh6SWwojT4pScj/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```
+[Download the pretrained models](https://drive.google.com/file/d/1qc7uBHHxPmQe7qZJhtnh6SWwojT4pScj/view?usp=sharing) (&leftarrow; click) and place it under `MulMON/', i.e. the root directory of this repository, then extract it by executing: ```tar -zxvf ./logs.tar.gz```. Note that some of them are slightly under-trained, so one could train them further to achieve better results ([How to train?](#train)).
 
 ## Usage
 **Configure data path**  
@@ -131,7 +131,11 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
 
 
 * **Evaluation**  
-(**available soon...**)
+  * On a single gpu (e.g. using the Clevr_MV dataset):  
+  ```run
+  . scripts/eval_clevr.sh  
+  ```
+  * For the disentanglement evaluation, run the `scripts/eval_clevr.sh` script with `--eval_dist` flag set to **True** and set the `--analyse_batch` variable (which controls how many scenes of latent codes one wants to analyse) to be **greater than 0**. This saves the ouptut latent codes and ground-truth information that allows you to conduct disentanglement quantification using the [QEDR framework](https://github.com/cianeastwood/qedr.git).
 
 
 ## Contact
