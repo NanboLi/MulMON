@@ -34,7 +34,7 @@ class MulMON(nn.Module):
         self.max_num_views = self.config.max_sample_views
         self.num_vq_show = self.config.num_vq_show
         self.decoder = SpatialBroadcastDec(self.z_dim, 4, self.config.image_size)
-        # The math on the paper suggests using viewpoints for inference, here we simply omit it in practice.
+        # One could use v^t as an input to the refinement function too (s.t. comply with the math presented on the paper).
         self.refine_net = RefineNetLSTM(self.z_dim, channels_in=17, image_size=self.config.image_size)
         self.view_encoder = nn.Sequential(
             nn.Linear(self.v_in_dim, 128, bias=True),
