@@ -34,6 +34,7 @@ class MulMON(nn.Module):
         self.max_num_views = self.config.max_sample_views
         self.num_vq_show = self.config.num_vq_show
         self.decoder = SpatialBroadcastDec(self.z_dim, 4, self.config.image_size)
+        # The math on the paper suggests using viewpoints for inference, here we simply omit it in practice.
         self.refine_net = RefineNetLSTM(self.z_dim, channels_in=17, image_size=self.config.image_size)
         self.view_encoder = nn.Sequential(
             nn.Linear(self.v_in_dim, 128, bias=True),
@@ -225,6 +226,10 @@ class MulMON(nn.Module):
             # Sample latent code
             mu_z, logvar_z = lmbda.chunk(2, dim=1)
             z = dist.Normal(mu_z, to_sigma(logvar_z)).rsample()  # (N*K,z_dim)
+            
+            # Computes the IG term here. Note that we found taking out the viewpoint condition from the IG term that is presented on 
+            # the paper and leave out v^t in inference gives better (?) results. In that case, the IG term here wouldn't be conditioning
+            # on v^t anymore---IG(z^t, x^t; z^(t-1)) ~= DKL[ q_(z^t| x^t, z^(t-1)) || q_(z^(t-1)| x^(t-1), z^(t-2)) ].
             kl_qz = kl_exponential(mu_z, to_sigma(logvar_z),
                                         pri_mu=mu_pri, pri_sigma=to_sigma(logvar_pri), z_samples=z)
             kl_qz = torch.stack(kl_qz.chunk(B, dim=0), dim=0).sum(dim=(1, 2))
