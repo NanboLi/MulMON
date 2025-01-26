@@ -147,7 +147,7 @@ To run the code, the data path, i.e. the `<YOUR-PATH>` in a script, needs to be 
 
 
 ## Contact
-We constantly respond to the raised ''issues'' in terms of running the code. For further inquiries and discussions (e.g. questions about the paper), email: **nanbo.li@ed.ac.uk**.   
+We constantly respond to the raised ''issues'' in terms of running the code. For further inquiries and discussions (e.g. questions about the paper), email: **linanbo2008@gmail.com**.   
 
 
 ## Cite  
